@@ -1,1 +1,12 @@
-Commit changes
+[
+  {
+    "nm_id": 12345678,
+    "label": "Смеситель MITTSU m-2017 (конкурент)",
+    "notify_below": null
+  },
+  {
+    "nm_id": 87654321,
+    "label": "Сифон F102 (конкурент)",
+    "notify_below": 450
+  }
+]
