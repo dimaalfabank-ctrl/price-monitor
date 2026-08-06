@@ -2,14 +2,15 @@ name: WB Price Monitor
 
 on:
   schedule:
+    # Каждые 3 часа. Синтаксис cron — в UTC (МСК = UTC+3), поправь при желании.
     - cron: '0 */3 * * *'
-  workflow_dispatch: {}
+  workflow_dispatch: {}   # позволяет запускать вручную кнопкой "Run workflow"
 
 jobs:
   check-prices:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: write   # нужно, чтобы закоммитить обновлённый last_prices.json
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -20,7 +21,9 @@ jobs:
           python-version: '3.12'
 
       - name: Install dependencies
-        run: pip install requests
+        run: |
+          pip install requests playwright
+          playwright install --with-deps chromium
 
       - name: Run price monitor
         env:
@@ -34,8 +37,8 @@ jobs:
           git config user.email "actions@github.com"
           if [ -f last_prices.json ]; then
             git add last_prices.json
-            git diff --quiet --cached || git commit -m "Update saved prices [skip ci]"
+            git diff --quiet --cached || git commit -m "Обновление сохранённых цен [skip ci]"
             git push
           else
-            echo "last_prices.json not created yet, nothing to commit."
+            echo "last_prices.json ещё не создан — нечего коммитить."
           fi
