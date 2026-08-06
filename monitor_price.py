@@ -101,6 +101,14 @@ def fetch_price_via_browser(page, nm_id):
 
         price = _parse_price_text(price_text)
         if price is None:
+            title = page.title()
+            body_snippet = ""
+            try:
+                body_snippet = page.locator("body").inner_text(timeout=3000)[:400]
+            except Exception:
+                pass
+            print(f"    Диагностика для {nm_id}: title='{title}'")
+            print(f"    Начало текста страницы: {body_snippet!r}")
             return None
 
         name = ""
