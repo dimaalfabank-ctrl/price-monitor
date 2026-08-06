@@ -30,7 +30,7 @@ TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
 # Публичный неавторизованный API карточек WB (тот же, что использует сайт).
 # dest — код региона доставки, влияет на отображаемую цену/акции.
 # -1257786 — примерно Москва; при желании можно заменить на свой регион.
-WB_CARD_API = "https://card.wb.ru/cards/detail"
+WB_CARD_API = "https://card.wb.ru/cards/v2/detail"
 WB_DEST = os.environ.get("WB_DEST", "-1257786")
 
 
@@ -192,4 +192,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
